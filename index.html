@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Crystal Game</title>
+	<!-- Latest compiled and minified CSS & JS -->
+	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<img src="">
+</head>	
+<body>
+	<div class="row">
+		<div class="panel panel-default col-md-2" id="header">
+			<div class="panel-heading" id="headingBackground">
+				<h3 class="panel-title">CrystalsCollector!</h3>
+			</div>
+		</div>
+		
+	</div>
+
+	<div class="row">
+		<div class="panel panel-default col-md-6" id="p" >
+			<div class="panel-heading" id="pbackgroundcolor">
+				<p>You will be given a random number at the start of the
+				 game.</p>
+
+				<p>There are four crystals below. By clicking on a crystal you
+				 will add a specific amount of points to your total score.</p>
+		
+				<p>You win the game by matching your total score to random
+				 number, you lose the game if your total score goes above
+				 the random number.
+		 
+				<p> The value of each crystal is hidded from you until you
+				 click on it.</p>
+				 <p> Each time when the game starts, the game will change the values of each crystal.
+			</div>
+		</div>
+		
+	</div>
+
+	<div class="row">
+		<div class="panel panel-default col-md-2" id=score> 
+	 		<div class="panel-body" >
+	 			<h1>  <span id="randomNumber" ></span></h1>
+	 		</div>
+	    </div>
+
+			<div class="panel panel-default col-md-2" id="winloss" >
+				<div class="panel-body" id="winsbackground" >
+					<h3>Wins: <span id="wins"></span></h3>
+					<h3>Losses: <span id="losses"></span></h3>
+				</div>
+			</div>
+	</div>
+<div class="row" id="crystalrow">
+	<div class="panel panel-default col-md-2" id="crystal">
+		<img src="assets/images/crystal1.jpg" id="crystal1">
+	</div>
+		<div class="panel panel-default col-md-2" id="crystal">
+			<img src="assets/images/crystal2.jpg" id="crystal2">
+		</div>
+			<div class="panel panel-default col-md-2" id="crystal">
+				<img src="assets/images/crystal3.jpg" id="crystal3">
+			</div>
+				<div class="panel panel-default col-md-2" id="crystal">
+					<img src="assets/images/crystal4.jpg" id="crystal4">
+				</div>
+</div>
+
+	<div class="row" >
+		<div class="panel panel-default col-md-2" id="totalscore">
+			<!-- <div class="panel-body" id="totalscore"> -->
+				<b>Your total score is:</b>			
+			<!-- </div> -->
+		</div>
+	</div>
+<div class="row">
+	<div class="panel panel-default col-md-2" id="totalscorebackground">
+		<div class="panel-body"  >
+			<h1><span id="totalScore"></span></h1>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	
+
+	
+	var randomNumber; crystal1, crystal2, crystal3, crystal4,totalScore;
+	var wins = 0;
+	var losses = 0;
+	// var overscore = (randomNumber - totalScore);
+
+    function resetGame() {
+	 	randomNumber = Math.floor(Math.random() * 120) +19;
+	 	$("#randomNumber").text(randomNumber);
+	 	crystal1= setNumber();
+	 	crystal2= setNumber();
+	 	crystal3= setNumber();
+	 	crystal4= setNumber();
+	 	totalScore = 0;
+	}
+
+	function setNumber() {
+	 	return Math.floor(Math.random() * 12) +1;
+	}
+
+	function randomReset() {
+		return Math.floor(Math.random() * 120) +19;
+	}
+
+	resetGame();
+	
+	
+	$("#crystal1").on("click", function(){
+		totalScore += crystal1;
+		displayScore();
+		checkScore();
+	});
+
+	$("#crystal2").on("click", function(){
+		totalScore += crystal2;
+		displayScore();
+		checkScore();
+	});
+
+	$("#crystal3").on("click", function(){
+		totalScore += crystal3;
+		displayScore();
+		checkScore();
+	});
+	$("#crystal4").on("click", function(){
+		totalScore += crystal4;
+		displayScore();
+		checkScore();
+	});
+
+	function displayScore() {
+		$("#totalScore").text(totalScore);
+		
+	}
+	
+	function checkScore() {
+		if(totalScore === randomNumber) {
+			wins++;
+			$("#wins").text(wins);
+			alert("You won!!, your current total score is  " + totalScore + " Great job!!");
+			resetGame();
+			$("totalScore").html(totalScore);
+		} else if (totalScore > randomNumber) {
+			losses++
+			$("#losses").text(losses);
+			alert("Sorry you loss, the total score was : " + totalScore);
+			
+			resetGame();
+			$("totalScore").html(totalScore);
+		}
+	}		
+	
+ 
+</script>
+</body>
+</html>
